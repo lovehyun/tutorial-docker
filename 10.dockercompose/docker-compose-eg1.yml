@@ -1,0 +1,7 @@
+version: "3.0"
+
+services:
+  app:
+    image: lovehyun/flask-eg:1.0
+    ports:
+      - "8000:5000"
