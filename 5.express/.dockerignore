@@ -1,3 +1,4 @@
 .dockerignore
 Dockerfile
 node_modules
+README.txt

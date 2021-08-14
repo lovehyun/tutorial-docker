@@ -7,5 +7,6 @@ RUN apt-get update && \
     echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
 ENTRYPOINT ["nginx"]
+# CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 80
