@@ -1,3 +1,5 @@
+# Full Docs : https://docs.docker.com/engine/reference/builder/
+
 # FROM 이미지:태그 - 태그 기본값은 latest
 FROM ubuntu:20.04
 
@@ -5,7 +7,10 @@ FROM ubuntu:20.04
 MAINTAINER shpark <emailaddress> 
 
 # MAINTAINER 는 deprecated 되고, LABEL 을 사용해서 정의
+# LABEL <key>=<value> <key>=<value> ...
 LABEL org.opencontainers.image.authors="shpark@emailaddress"
+LABEL version="1.0" \
+      description="This is my app"
 
 # 해당 컨테이너 안에서 실행할 명령어 
 # RUN 하나당 하나의 layer 생성. 불필요한 layer 줄이기 위해서는 && \  사용해서 하나의 명령어로 변경
@@ -39,7 +44,10 @@ CMD ["index.js"]
 VOLUME ["/var/lib/mysql"]
 
 # 컨테이너 내부 포트를 외부에서 연결할 수 있음 - 이것과 무관하게 컨테이너 실행 시 -p 명령어 사용 필수
+# 기본적으로는 tcp
 EXPOSE 5000
+EXPOSE 80/tcp
+EXPOSE 80/udp
 
 # 컨테이너 내부 실행 시 사용자 계정/권한 - 생략 시 root
 USER www-data
