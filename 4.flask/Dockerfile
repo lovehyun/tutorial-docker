@@ -1,10 +1,11 @@
 FROM python:3.8-alpine
 
 # RUN pip install flask
-RUN pip install -r requirements.txt
 
 WORKDIR /app
 COPY . /app
+
+RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "app.py"]
 
