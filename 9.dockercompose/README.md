@@ -22,6 +22,7 @@
   - ` docker-compose down `
   - ` docker-compose stop `
   - ` docker-compose start `
+
 ### 2. 상세 명령어
 - 특정 파일명으로 만들어진 컴포즈 파일 실행
   - ` docker-compose -f myapp.yml -f myapp2.yml up -d `
@@ -46,3 +47,28 @@
   - https://docs.docker.com/compose/networking/
   - https://docs.docker.com/compose/startup-order/
 
+### 4. 실제 예제
+- 워드프레스/MySQL 예제 : demo1_wordpress
+  - 설정파일 리뷰 및 실행
+    - ` docker-compose up -d `
+  - 필요 시 DB 계정 생성
+    - ` mysql -u root -p `
+      ```bash
+      create database wordpress;
+      create user wp-user@'10.0.%' identified by '<my-password>';
+      grant all privileges on wordpress.* to wp-user@'10.0.%' identified by '<my-password>' with grant option;
+      flush privileges;
+      ```
+  - 권한 조회
+    - ` show grants for my-user@'10.0.%' `
+  - 권한 삭제
+    - ` revoke all on wordpress from wp-user@'10.0.%' `
+- 워드프레스/MySQL/phpMyAdmin 예제 : demo1_wordpress
+  - 환경변수 필요 시 생성 (.env)
+    ```bash
+    MYSQL_ROOT_PASSWORD=this-is-my-password
+    MYSQL_USER=wp-user
+    MYSQL_USER_PASWORD=this-is-my-password
+    ```
+  - 설정파일 리뷰 및 실행
+    - ` docker-compose up -d -f .env `

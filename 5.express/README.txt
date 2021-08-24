@@ -10,3 +10,7 @@ npm install --save-dev nodemon
 }
 
 npm start
+
+
+# 설치 시
+npm install --production
