@@ -1,6 +1,8 @@
 # FROM node:alpine
 FROM node:10-alpine
 
+RUN apk --no-cache add curl
+
 WORKDIR /app
 
 # ADD app.js /app
