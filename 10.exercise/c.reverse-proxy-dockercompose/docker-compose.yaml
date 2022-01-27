@@ -1,0 +1,53 @@
+version: "3.0"
+
+services:
+  my-app1:
+    image: lovehyun/flask-app:1.2
+    environment: 
+      - APP_COLOR=green
+    ports:
+      - "8000:5000"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+  my-app2:
+    image: lovehyun/flask-app:1.2
+    environment: 
+      - APP_COLOR=orange
+    ports:
+      - "8001:5000"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+  my-app3:
+    image: lovehyun/flask-app:1.2
+    environment: 
+      - APP_COLOR=red
+    ports:
+      - "8002:5000"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+  my-nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    links:
+      - "my-app1:my-flask1"
+      - "my-app2:my-flask2"
+      - "my-app3:my-flask3"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+    networks:
+      - my-app-network
+    restart: unless-stopped
+    depends_on: 
+      - my-app1
+      - my-app2
+      - my-app3
+
+networks:
+  my-app-network:
