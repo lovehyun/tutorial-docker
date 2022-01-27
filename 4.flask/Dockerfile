@@ -1,5 +1,8 @@
 FROM python:3.8-alpine
 
+# RUN apk add --update curl && \
+#     rm -rf /var/cache/apk/*
+
 # RUN pip install flask
 
 WORKDIR /app
