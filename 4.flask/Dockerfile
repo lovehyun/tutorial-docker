@@ -12,4 +12,8 @@ RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "app.py"]
 
+# Using unbuffered output to see the python "print" in "docker logs my-app"
+# ENTRYPOINT ["python", "-u", "app.py"]
+# or -e PYTHONUNBUFFERED=1 with docker cmd
+
 EXPOSE 5000
