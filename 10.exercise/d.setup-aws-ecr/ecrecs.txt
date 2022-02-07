@@ -1,0 +1,86 @@
+# AWS 리포 생성
+
+===== ECR =====
+
+# ECR 리포지토리 생성
+# 앱 이름을 정하고 (tutorial-flask-app) 각 AWS 계정 ARN 을 기반으로 리포명이 정해져 있음
+# 해당 앱 이름을 만들면 그 후로는 tag 버전만이 붙어서 올라감
+xxxxxxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com/tutorial-flask-app
+
+
+# 리포 접속
+
+# AWS CLI 설정
+
+sudo apt install awscli
+aws configure
+ - AWS Access Key ID
+ - AWS Secret Access Key
+ - Default region name
+
+
+# AWS ECR 로그인
+aws ecr get-login --no-include-email
+- 위에 명령을 실행하면 docker login 으로 시작하는 명령어가 나옴
+- 해당 명령으로 docker login을 하면 24시간 동안 로그인이 유효함
+
+
+docker login -u AWS -p eyJwYXlsb2FkI...<중략>...czfQ== https://7805xxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com
+
+docker tag flask-app:1.2 7805xxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com/tutorial-flask-app:1.2
+
+docker push 7805xxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com/tutorial-flask-app:1.2
+
+
+
+===== ECS =====
+
+Fargate vs EC2
+ - Fargate : Serverless container hosting
+ - EC2 : Computing instance
+
+Task definition (작업 정의) 을 통해 ECS에서 실행될 작업 정의를 생성
+
+
+https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/getting-started-fargate.html
+
+
+EC2 -> Auto scaling Group -> ELB -> 배포 -> AMI 이미지 생성 -> Configuration 생성 -> Auto Scaling Group 연동...
+
+Fargate -> Cluster 생성 -> ECR 생성 -> Dockerfile 작성/수정 -> Image ECR에 Push -> Task definition -> 서비스 생성
+
+Fargate -> Cluster 생성 -> ECR 생성 -> Dockerfile 작성/수정 -> Image ECR에 Push -> Task definition -> 서비스 생성 -> ELB 생성 -> Update 서비스
+
+
+
+===== OTHER =====
+
+# CI 와 연동
+
+## AWS ECR - Travis CI
+
+after_success:
+  # Install AWS CLI
+  - pip install --user awscli # install aws cli w/o sudo
+	- export PATH=$PATH:$HOME/.local/bin # put aws in the path
+  # Log in to the docker CLI
+  - eval $(aws ecr get-login --region us-east-1) # needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+  # Build docker image
+  - docker build -t dockerhub_id/image_name ./
+  # Tag image for AWS ECR
+	- docker tag dockerhub_id/image_name:latest ECR_URI/dockerhub_id/image_name:latest
+  # Take those image and push them to docker hub
+  - docker push dockerhub_id/image_name:latest
+
+
+# Docker Hub - Travis CI
+
+after_success:
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Biuld docker image
+  - docker build -t dockerhub_id/image_name ./
+	# Take those image and push them to docker hub
+  - docker push dockerhub_id/image_name:latest
+
+

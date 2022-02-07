@@ -56,3 +56,9 @@ curl localhost
 docker-compose up -d
 docker-compose down
 
+
+
+# d.setup-aws-ecr
+aws cli basics
+ecr ecs setup
+
