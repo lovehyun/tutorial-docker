@@ -1,0 +1,35 @@
+
+# CI 와 연동
+
+## AWS ECR - Travis CI
+
+after_success:
+  # Install AWS CLI
+  - pip install --user awscli # install aws cli w/o sudo
+	- export PATH=$PATH:$HOME/.local/bin # put aws in the path
+  # Log in to the docker CLI
+  - eval $(aws ecr get-login --region us-east-1) # needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+  # Build docker image
+  - docker build -t dockerhub_id/image_name ./
+  # Tag image for AWS ECR
+	- docker tag dockerhub_id/image_name:latest ECR_URI/dockerhub_id/image_name:latest
+  # Take those image and push them to docker hub
+  - docker push dockerhub_id/image_name:latest
+
+
+# Docker Hub - Travis CI
+
+after_success:
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Biuld docker image
+  - docker build -t dockerhub_id/image_name ./
+	# Take those image and push them to docker hub
+  - docker push dockerhub_id/image_name:latest
+
+
+
+# AWS ECR actions
+# https://github.com/aws-actions/amazon-ecr-login
+
+

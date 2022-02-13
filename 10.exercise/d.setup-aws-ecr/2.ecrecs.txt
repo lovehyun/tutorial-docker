@@ -37,14 +37,30 @@ docker push 7805xxxxxxxx.dkr.ecr.ap-northeast-2.amazonaws.com/tutorial-flask-app
 ===== ECS =====
 
 # 개념 설명
+# https://aws.amazon.com/ko/ecs/features/?pg=ln&sec=gs
+# https://aws.amazon.com/ko/blogs/compute/building-blocks-of-amazon-ecs/
 
+## Cluster infra
 Fargate vs EC2
  - Fargate : Serverless container hosting
  - EC2 : Computing instance
 
-Task definition (작업 정의) 을 통해 ECS에서 실행될 작업 정의를 생성
+
+## 구성 요소
+ - Cluster : 배포 될 인프라
+ - Task : 컨테이너 실행 최소 단위 (1개 혹은 1개 이상의 컨테이너)
+ - Task definition : 컨테이너 실행 명세
+ - Service : 작업을 묶은 단위
+
+
+## 계층 구조
+Container definition < Task definition < Service < Cluster
+
+
+Task definition (작업 정의) 을 통해 ECS에서 실행될 작업 정의를 생성 (하나 또는 그 이상의 컨테이너 실행 정의)
 
 https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/getting-started-fargate.html
+
 
 EC2 -> Auto scaling Group -> ELB -> 배포 -> AMI 이미지 생성 -> Configuration 생성 -> Auto Scaling Group 연동...
 
@@ -54,6 +70,7 @@ Fargate -> Cluster 생성 -> ECR 생성 -> Dockerfile 작성/수정 -> Image ECR
 
 
 ## CLI 설정 명령
+# https://docs.aws.amazon.com/cli/latest/reference/ecs/index.html
 
 aws ecs list-clusters
 
@@ -63,6 +80,9 @@ aws ecs list-tasks --cluster my-ecs-cluster
 aws ecs list-task-definitions
 
 aws ecs list-task-definition-families
+
+
+aws ecs list-services --cluster my-ecs-cluster
 
 
 aws ecs register-task-definition
