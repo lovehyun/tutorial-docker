@@ -70,7 +70,7 @@ Fargate -> Cluster 생성 -> ECR 생성 -> Dockerfile 작성/수정 -> Image ECR
 
 
 ## CLI 설정 명령
-# https://docs.aws.amazon.com/cli/latest/reference/ecs/index.html
+- https://docs.aws.amazon.com/cli/latest/reference/ecs/index.html
 
 aws ecs list-clusters
 
@@ -91,6 +91,12 @@ aws ecs deregister-task-definition
 
 
 aws ecs register-task-definition --container-definitions
+
+
+
+## Hands-on python lab
+- https://hands-on.cloud/working-with-ecs-in-python-using-boto3/
+- https://hands-on.cloud/working-with-ec2-instances-using-boto3-in-python/
 
 
 
