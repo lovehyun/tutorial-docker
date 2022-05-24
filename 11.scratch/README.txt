@@ -15,7 +15,7 @@ Basic template - 실제 동작 안함
 
 go run main2.go run echo hello world
 go run main2.go run ls
-go run main2.go run ls –l
+go run main2.go run ls -l
 
 
 
@@ -50,7 +50,7 @@ sudo go run main5.go run bash
 
 ps
 ps x
-<shared – proc 으로 인해서..>
+<shared - proc 으로 인해서..>
 
 
 
@@ -65,8 +65,8 @@ ps x
 mount
 <shared>
 
-ps –C sleep
-ls –l /proc/<pid>/root
+ps -C sleep
+ls -l /proc/<pid>/root
 cat /proc/<pid>/mounts
 
 
@@ -95,9 +95,9 @@ sudo go run main7.go run bash
 ps
 <안됨>
 
-mount –t proc proc /proc
+mount -t proc proc /proc
 
-ln –s /proc/self/mounts /etc/mtab
+ln -s /proc/self/mounts /etc/mtab
 mount
 <shared>
 
@@ -119,8 +119,8 @@ ps x
 
 cd /sys/fs/cgroup/memory
 cat memory.limit_in_bytes
-docker run –rm –it ubuntu /bin/bash
-docker run –rm –it ubuntu –memory=10M /bin/bash
+docker run --rm -it ubuntu /bin/bash
+docker run --rm -it ubuntu --memory=10M /bin/bash
 cat docker/xxxxx/memory.limit_in_bytes
 
 
