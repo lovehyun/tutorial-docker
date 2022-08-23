@@ -69,6 +69,34 @@
        ```
   4. Dev 와 Ops 환경의 sync 맞추기
 
+### 6.java
+- java 앱 만들기
+  - 빌드 : 
+    ```bash
+    docker build --tag javaapp:0.1 .
+    docker build --tag javaapp:0.2 -f Dockerfile.v2 .
+    docker build --tag javaapp:0.3 -f Dockerfile.v3 .
+    ```
+  - 실행 : ` docker run --rm javaapp:0.1 `
+- 주요 관점
+  1. 싱글 스테이지 빌드 (비효율적 컴파일)
+  2. 싱글 스테이지 빌드 (잘못된 바이너리 복사)
+  3. 멀티 스테이지 빌드 (올바른 컴파일 및 이미지 최적화)
+  4. 멀티 스테이지 빌드 (BEST 예시)
+
+### 7.golang
+- golang 앱 만들기
+- 빌드 : 
+    ```bash
+    docker build --tag goapp:0.1 .
+    docker build --tag goapp:0.2 -f Dockerfile.v2 .
+    ```
+- 주요 관점
+  1. 싱글 스테이지 빌드 (비효율적 컴파일)
+  2. 멀티 스테이지 빌드 (올바른 컴파일 및 이미지 최적화)
+  3. 멀티 스테이지 빌드 (BEST 예시)
+
+
 ### 9.dockercompose
 - dockercompose 를 사용한 개발/배포/운영
 
