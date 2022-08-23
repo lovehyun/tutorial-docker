@@ -1,0 +1,9 @@
+FROM golang:alpine AS builder
+
+ADD main.go .
+RUN go build main.go
+
+FROM alpine
+COPY --from=builder /go/main /go/main
+
+CMD ["/go/main"]

@@ -1,0 +1,11 @@
+FROM openjdk:8-alpine AS builder
+
+ADD HelloWorld.java HelloWorld.java
+
+RUN javac HelloWorld.java
+
+FROM openjdk:8-jre-alpine
+
+COPY --from=builder HelloWorld.class .
+
+ENTRYPOINT ["java", "HelloWorld"]
