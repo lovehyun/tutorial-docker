@@ -93,13 +93,13 @@
     - 볼륨 바인딩 : ` docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=true --name mysqldb -v mysql_volume:/var/lib/mysql mysql:5.7 ` 
     - 샘플 query문
       ```bash
-      show databases;
-      create database soma;
-      use soma;
-      create table users(in integer, name char(10));
-      insert into users values(1, "hello");
-      insert into users values(2, "world");
-      select * from users;
+      SHOW DATABASES;
+      CREATE DATABASES soma;
+      USE soma;
+      CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(20), PRIMARY KEY(id));
+      INSERT INTO users(name) VALUES("hello");
+      INSERT INTO users(name) VALUES("world");
+      SELECT * FROM users;
       ```
 - 실습5. 네트워크
     - ` docker inspect xxx `
