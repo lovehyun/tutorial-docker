@@ -91,6 +91,16 @@
     - 호스트패스 바인딩 : ` docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=true --name mysqldb -v /data/database:/var/lib/mysql mysql:5.7 ` 
     - 볼륨 생성 : ` docker volume create mysql_volume `
     - 볼륨 바인딩 : ` docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=true --name mysqldb -v mysql_volume:/var/lib/mysql mysql:5.7 ` 
+    - 샘플 query문
+      ```bash
+      show databases;
+      create database soma;
+      use soma;
+      create table users(in integer, name char(10));
+      insert into users values(1, "hello");
+      insert into users values(2, "world");
+      select * from users;
+      ```
 - 실습5. 네트워크
     - ` docker inspect xxx `
     - ` docker inspect xxx | grep "IPAddress" `
