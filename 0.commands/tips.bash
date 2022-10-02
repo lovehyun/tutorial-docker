@@ -1,7 +1,7 @@
 function docker-taglist {
   if [ ! -z $1 ]; then
-    # curl -s https://registry.hub.docker.com/v1/repositories/$1/tags | sed "s/,/\n/g" | grep name | cut -d '"' -f 4
-    curl -s https://hub.docker.com/v2/repositories/$1/tags/list | jq
+    curl -s https://registry.hub.docker.com/v1/repositories/$1/tags | sed "s/,/\n/g" | grep name | cut -d '"' -f 4
+    # curl -s https://hub.docker.com/v2/repositories/$1/tags/list | jq
   else
     echo -e "\nusage: docker-taglist [imagename]\n"
   fi
