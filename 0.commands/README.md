@@ -115,10 +115,19 @@
     - ` docker network prune `
 - 실습6. 도커간 연동 (워드프레스 & DB)
     - ` docker run -d -p 8080:80 --link mysql:mydatabase -e WORDPRESS_DB_HOST=mydatabase -e WORDPRESS_DB_NAME=wp -e WORDPRESS_DB_USER=wp -e WORDPRESS_DB_PASSWORD=wp wordpress `
-    - ```bash
+    - MYSQL 5.7
+      ```bash
       mysql -h127.0.0.1 -uroot
       create database wp;
       grant all privileges on wp.* to wp@'%' identified by 'wp';
+      flush privileges;
+      quit
+      ```
+    - MYSQL 8.0 (개별 사용자 생성 필요)
+      ``` bash
+      mysql -h127.0.0.1 -uroot
+      create user wp@'%' identified by 'wp';
+      grant all privileges on wp.* to wp@'%' with grant option;
       flush privileges;
       quit
       ```
