@@ -1,8 +1,11 @@
+# 멀티 스테이지 빌드를 통해 올바르게 컴파일과 실행하는 예시
+# Build Stage (임시환경)
 FROM golang:alpine AS builder
 
 ADD main.go .
 RUN go build main.go
 
+# Package Stage (운영환경)
 FROM alpine
 COPY --from=builder /go/main /go/main
 

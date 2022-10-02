@@ -1,9 +1,12 @@
+# 멀티 스테이지 빌드를 통해 올바르게 컴파일과 실행하는 예시
+# Build Stage (임시환경)
 FROM openjdk:8-alpine AS builder
 
 ADD HelloWorld.java HelloWorld.java
 
 RUN javac HelloWorld.java
 
+# Package Stage (운영환경)
 FROM openjdk:8-jre-alpine
 
 COPY --from=builder HelloWorld.class .

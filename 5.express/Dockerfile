@@ -11,5 +11,6 @@ COPY . .
 
 RUN npm install
 # RUN npm install --production
+# RUN npm clean-install
 
 CMD ["node", "app.js"]

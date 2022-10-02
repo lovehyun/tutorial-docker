@@ -1,3 +1,4 @@
+# 컨테이너 환경에서 바이너리(class) 실행 예시
 FROM alpine
 
 ADD HelloWorld.class HelloWorld.class

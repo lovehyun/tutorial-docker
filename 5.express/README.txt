@@ -12,5 +12,9 @@ npm install --save-dev nodemon
 npm start
 
 
-# 설치 시
+# 설치 시 (개발도구 제외)
 npm install --production
+
+
+# 추가로 package-lock.json 을 참고해서 정확한(동일한) 버전을 재설치 시
+npm clean-install
