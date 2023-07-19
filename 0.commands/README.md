@@ -94,7 +94,7 @@
     - 샘플 query문
       ```bash
       SHOW DATABASES;
-      CREATE DATABASES soma;
+      CREATE DATABASE soma;
       USE soma;
       CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(20), PRIMARY KEY(id));
       INSERT INTO users(name) VALUES("hello");
@@ -126,6 +126,7 @@
     - MYSQL 8.0 (개별 사용자 생성 필요)
       ``` bash
       mysql -h127.0.0.1 -uroot
+      create database wp;
       create user wp@'%' identified by 'wp';
       grant all privileges on wp.* to wp@'%' with grant option;
       flush privileges;
