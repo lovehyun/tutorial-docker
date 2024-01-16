@@ -113,7 +113,29 @@
       ```
     - ` docker network ls `
     - ` docker network prune `
-- 실습6. 도커간 연동 (워드프레스 & DB)
+    - 심화 exercise
+      ```bash
+      docker network create --driver bridge --subnet 192.168.1.0/24 my-test-network1
+      docker network create --driver bridge --subnet 192.168.2.0/24 my-test-network2
+      docker network ls
+
+      docker run -it --name myos1 --network my-test-network1 ubuntu:20.04
+      docker run -it --name myos2 --network my-test-network1 ubuntu:20.04
+
+      docker run -it --name myos3 --network my-test-network2 ubuntu:20.04
+      docker run -it --name myos4 --network my-test-network2 ubuntu:20.04
+
+      ping 192.168.1.2
+      ping 192.168.1.3
+      ping 192.168.2.1
+      ping 192.168.2.2
+
+      ping myos1
+      ping myos2
+      ping myos3
+      ping myos4
+      ```
+- 실습6. 도커간 연동 (워드프레스 & DB) - link 로 연결
     - ` docker run -d -p 8080:80 --link mysql:mydatabase -e WORDPRESS_DB_HOST=mydatabase -e WORDPRESS_DB_NAME=wp -e WORDPRESS_DB_USER=wp -e WORDPRESS_DB_PASSWORD=wp wordpress `
     - MYSQL 5.7
       ```bash
@@ -130,6 +152,13 @@
       grant all privileges on wp.* to wp@'%' with grant option;
       flush privileges;
       quit
+      ```
+- 실습 6-2. 도커간 연동 (워드프레스 & DB) - network 로 연결
+    - 두 컨테이너 모두 같은 네트워크에 배치 (서로 컨테이너 이름으로 호스트 접근 가능)
+      ``` bash
+      docker run --name mysql -d -p 3306:3306 --network my-network -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql:5.7
+
+      docker run -d -p 8080:80 --network my-network -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_NAME=wp -e WORDPRESS_DB_USER=wp -e WORDPRESS_DB_PASSWORD=wp wordpress
       ```
 - 실습7. 컨테이너 이미지 저장 (vim 설치, main 변경 및 이미지 저장)
     - ` docker run --name my-nginx -p 80:80 -d nginx `
