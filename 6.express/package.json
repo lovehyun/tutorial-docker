@@ -1,5 +1,5 @@
 {
-  "name": "5.express",
+  "name": "6.express",
   "version": "1.0.0",
   "description": "my-express-app",
   "main": "app.js",
@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.4"
   }
 }
