@@ -1,11 +1,14 @@
+// linux/mac: export APP_COLOR=blue
+// windows: set APP_COLOR=green
+
 const express = require('express');
 const nunjucks = require('nunjucks');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const color = process.env.APP_COLOR;
 const app = express();
 const port = process.env.PORT || 3000;
+const color = process.env.APP_COLOR;
 
 nunjucks.configure('views', {
     autoescape: true,

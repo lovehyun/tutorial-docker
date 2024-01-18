@@ -1,7 +1,7 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var os = require('os');
+const os = require('os');
 const port = 3000;
 
 app.get('/', function (req,res) {
