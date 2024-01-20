@@ -14,7 +14,7 @@ server {
         include /etc/nginx/proxy_params;
     }
 
-    location /page3 {
+    location ^/page3(/|$) {
         proxy_pass http://127.0.0.1:8002/;
 
         include /etc/nginx/proxy_params;
