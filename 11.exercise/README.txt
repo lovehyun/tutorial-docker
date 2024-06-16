@@ -55,10 +55,3 @@ curl localhost
 # 모든 서비스 한번에 로딩
 docker-compose up -d
 docker-compose down
-
-
-
-# d.setup-aws-ecr
-aws cli basics
-ecr ecs setup
-
