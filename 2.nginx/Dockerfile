@@ -4,7 +4,7 @@ MAINTAINER shpark <emailaddress>
 
 RUN apt-get update && \
     apt-get install nginx -y && \
-    echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
+    echo -e "\ndaemon off;" >> /etc/nginx/nginx.conf && \
     echo "<h1>Hello SOMA</h1>" > /var/www/html/index.html
 
 # Clean up APT when done.

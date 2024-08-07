@@ -31,6 +31,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ```
 docker rmi $(docker images -f "dangling=true" -q)
 ```
+또는 최신 명령어
+```
+docker image prune
+```
 
 
 # Alpine 리눅스 주요 명령어
