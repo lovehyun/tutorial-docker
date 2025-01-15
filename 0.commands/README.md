@@ -38,6 +38,8 @@
 ### 2. 기본 명령어
 - ` docker ps `
 - ` docker ps -a `
+- ` docker container ls `
+- ` docker container ls -a `
 - ` docker images `
 
 ### 3. 커널

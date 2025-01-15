@@ -9,6 +9,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 const color = process.env.APP_COLOR;
+const logFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
 nunjucks.configure('views', {
     autoescape: true,
@@ -24,10 +25,18 @@ morgan.token('remote-addr', (req) => {
     return req.headers['x-forwarded-for'] || req.ip || '-';
 });
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
+app.use(morgan(logFormat));
 
 app.get('/', (req, res) => {
     res.render('hello.html', { color });
+});
+
+// /crash 라우트 - 고의적으로 서버 크래시 발생
+app.get('/crash', (req, res) => {
+    console.log('Server is about to crash...');
+    throw new Error('Intentional Server Crash'); // 서버 강제 종료
+    // process.exit(1);  // 프로세스를 완전히 종료 (비정상 종료 코드 1)
 });
 
 app.listen(port, () => {
