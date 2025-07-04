@@ -26,7 +26,8 @@
 
 ```bash
 mkdir -p ~/.docker/cli-plugins/
-curl -SL https://github.com/docker/buildx/releases/download/v0.15.0/buildx-v0.15.0.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+# curl -SL https://github.com/docker/buildx/releases/download/v0.15.0/buildx-v0.15.0.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+curl -SL https://github.com/docker/buildx/releases/latest/download/docker-buildx-linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
 chmod +x ~/.docker/cli-plugins/docker-buildx
 ```
 

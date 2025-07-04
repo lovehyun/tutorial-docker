@@ -9,6 +9,33 @@
 - 설치 방법
   - 방법1 (추천) : ` sudo apt install docker-compose `
 
+## 최신 도커 컴포즈 설치
+Docker 공식 GPG 키 추가
+```bash
+sudo apt update
+sudo apt install ca-certificates curl gnupg -y
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
+```
+
+Docker 공식 저장소 추가
+```bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Docker Compose Plugin 설치
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin -y
+docker compose version
+```
+
+기존 docker-compose 명령어는 더 이상 사용하지 않고, docker compose (띄어쓰기)로 실행합니다.
+Docker Compose V2는 Docker CLI에 통합된 최신 방식입니다.
+
+
 ## 도커 컴포즈 문법
 - https://docs.docker.com/compose/compose-file/
 - https://docs.docker.com/compose/compose-file/compose-file-v3/
