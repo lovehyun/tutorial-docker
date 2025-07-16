@@ -173,3 +173,59 @@
       ```
     - ` docker commit -m 'nginx + vim' my-nginx my-nginx:1.0 `
     - ` docker history my-nginx:1.0 `
+
+- 실습8. whalesay 커스텀 이미지 만들기 (M1/Intel 모두 지원)
+  - docker/whalesay 이미지는 더 이상 최신 Docker에서 권장되지 않음 (구버전 포맷)
+  - 이를 최신 Ubuntu 기반으로 직접 빌드하고, 멀티 아키텍처(x86_64 + arm64)용 이미지로 lovehyun/whalesay 이름으로 게시
+    ```bash
+    # 0. buildx 플러그인 설치
+    mkdir -p ~/.docker/cli-plugins
+    curl -Lo ~/.docker/cli-plugins/docker-buildx https://github.com/docker/buildx/releases/download/v0.13.1/buildx-v0.13.1.linux-amd64
+    chmod +x ~/.docker/cli-plugins/docker-buildx
+    docker buildx version
+
+    # 1. 멀티 아키텍처 빌더 설정
+    docker run --privileged --rm tonistiigi/binfmt --install all
+    docker buildx create --use --name multiarch-builder
+    docker buildx inspect --bootstrap
+
+    # 2. 소스 코드 다운로드 및 수정
+    git clone https://github.com/docker/whalesay.git
+    cd whalesay
+
+    # 3. Dockerfile 수정
+    FROM ubuntu:22.04
+
+    RUN apt update && \
+        apt install -y cowsay && \
+        rm -rf /var/lib/apt/lists/*
+
+    # cowfile 직접 복사
+    COPY docker.cow /usr/share/cowsay/cows/whale.cow
+
+    # whalesay 명령 만들기
+    RUN echo '#!/bin/bash\n/usr/games/cowsay -f whale "$@"' > /usr/local/bin/whalesay && \
+        chmod +x /usr/local/bin/whalesay
+
+    ENTRYPOINT ["/usr/local/bin/whalesay"]
+    CMD ["Hello!"]
+
+    # 4. 빌드 및 푸시
+    docker login
+
+    docker buildx build --platform linux/amd64,linux/arm64 \
+      -t lovehyun/whalesay:latest \
+      --push .
+
+    # 5. 테스트
+    docker run lovehyun/whalesay Hello Docker!
+
+    docker run -it --entrypoint bash lovehyun/whalesay
+
+    docker run --platform linux/arm64 lovehyun/whalesay 안녕 ARM!
+    docker run --platform linux/amd64 lovehyun/whalesay 안녕 AMD!
+
+    # 6. 플랫폼 지원 확인
+    docker buildx imagetools inspect lovehyun/whalesay:latest
+
+    ```
