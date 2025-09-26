@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stress-ng Running</title>
+</head>
+<body>
+    <h2>Stress-ng 실행 중</h2>
+    <p>CPU 개수: {{ cpu }}</p>
+    <p>부하율: {{ load }}%</p>
+    <p>시작 시간: {{ start_time }}</p>
+    <p>총 실행 시간: {{ duration }}초</p>
+    <p>남은 시간: <span id="remaining">{{ remaining }}</span>초</p>
+
+    <script>
+        let remaining = {{ remaining }};
+        function updateCountdown() {
+            if (remaining > 0) {
+                remaining--;
+                document.getElementById("remaining").innerText = remaining;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

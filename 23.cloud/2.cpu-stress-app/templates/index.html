@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stress-ng Test API</title>
+</head>
+<body>
+    <h2>Stress-ng API</h2>
+    <p><a href="/load?cpu=2&time=60&load=80">Start Load Test</a></p>
+    <p><a href="/status" target="_blank">View Status (JSON)</a></p>
+    <p>/status는 아래와 같이 5초마다 자동 새로고침됩니다:</p>
+    <iframe src="/status" id="statusFrame" width="500" height="200"></iframe>
+
+    <script>
+        setInterval(() => {
+            document.getElementById("statusFrame").src = "/status?" + new Date().getTime();
+        }, 5000);
+    </script>
+</body>
+</html>
