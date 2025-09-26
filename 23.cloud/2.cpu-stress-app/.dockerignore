@@ -1,0 +1,16 @@
+# 파이썬 캐시 파일
+__pycache__/
+*.pyc
+*.pyo
+
+# 가상환경 (혹시 있다면)
+.venv/
+venv/
+
+# Git 관련
+.git
+.gitignore
+
+# Docker 자체
+.dockerignore
+Dockerfile
